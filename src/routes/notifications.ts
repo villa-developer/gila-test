@@ -4,7 +4,7 @@ import { toNewNotificationEntry } from '../utils'
 const router = express.Router()
 
 router.get('/', (_req, res) => {
-  res.send(notificationService.getNotifications())
+  res.send(notificationService.getNotifications().reverse())
 })
 
 router.get('/:id', (req, res) => {
@@ -19,7 +19,6 @@ router.post('/', (req, res) => {
 
   try {
     const users = notificationService.getUsers(req.body.category)
-    console.log(users.length)
     if (users.length > 0) {
       let notificationsSended = 0
 

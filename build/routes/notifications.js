@@ -43,7 +43,6 @@ router.post('/', (req, res) => {
     };
     try {
         const users = notificationService.getUsers(req.body.category);
-        console.log(users.length);
         if (users.length > 0) {
             let notificationsSended = 0;
             users.forEach(user => {

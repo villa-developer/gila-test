@@ -18,3 +18,4 @@ app.use('/api/auth', users_1.default);
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+exports.default = app;
