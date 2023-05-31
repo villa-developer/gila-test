@@ -18,7 +18,9 @@ export default class NotificationsController {
     }
 
     try {
-      const notifications = await Notification.findAll()
+      const notifications = await Notification.findAll({
+        order: [['id', 'DESC']]
+      })
       if (notifications.length > 0) {
         response.success = true
         response.data = notifications
