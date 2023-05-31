@@ -1,0 +1,26 @@
+[
+    {
+        "name": "User One",
+        "phone_number": "3221008052",
+        "subscribed": "sport, finance, movies",
+        "channels": "sms, e-mail, push notification",
+        "email": "one@gmail.com",
+        "password": "password"
+    },
+    {
+        "name": "User Two",
+        "phone_number": "3221008053",
+        "subscribed": "sport, finance",
+        "channels": "e-mail, push notification",
+        "email": "two@gmail.com",
+        "password": "password"
+    },
+    {
+        "name": "User Three",
+        "phone_number": "3221008054",
+        "subscribed": "movies",
+        "channels": "push notification",
+        "email": "three@gmail.com",
+        "password": "password"
+    }
+]

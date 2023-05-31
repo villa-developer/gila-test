@@ -1,3 +1,9 @@
+import { Optional } from 'sequelize'
+
+export interface ISend {
+  send: () => Promise<boolean>
+}
+
 export enum Channel {
   Sms = 'sms',
   Mail = 'e-mail',
@@ -10,34 +16,40 @@ export enum Category {
   Movies = 'movies'
 }
 
-export interface NotificationEntry {
+export interface NotificationAttributes {
   id: number
+  userId: number
   channel: Channel
   category: Category
   userName: string
   message: string
   status: string
-  created_at: string
 }
 
-export interface User {
-  id: number
-  name: string
-  phone_number: string
-  subscribed: Category[]
-  channels: Channel[]
-  email: string
-  password: string
+export interface Response {
+  success: boolean
+  message: string
+  data: any[]
 }
 
 export interface LoginSucessResponse {
-  success: boolean
-  message: string
   categories: Category[]
   token: string
   name: string
 }
 
-export type LoginRequest = Omit<User, 'id' | 'name' | 'phone_number' | 'subscribed' | 'channels'>
+export interface UserAttributes {
+  id: number
+  name: string
+  email: string
+  phone_number: string
+  subscribed: string
+  channels: string
+  password: string
+}
 
-export type NewNotificationEntry = Omit<NotificationEntry, 'id' | 'status' | 'created_at'>
+export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+
+export type LoginRequest = Omit<UserAttributes, 'id' | 'name' | 'phone_number' | 'subscribed' | 'channels'>
+
+export type NotificationCreationAttributes = Omit<NotificationAttributes, 'id'>

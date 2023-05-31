@@ -14,9 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const globals_1 = require("@jest/globals");
-const url = 'http://127.0.0.1:3000/api/notifications';
-const authUrl = 'http://127.0.0.1:3000/api/auth';
-// `
+const base = 'http://127.0.0.1:3000/api';
+const notificationsUrl = `${base}/notifications`;
 (0, globals_1.describe)('Test notification routes', () => {
     const defaultNotification = {
         id: 1,
@@ -28,7 +27,7 @@ const authUrl = 'http://127.0.0.1:3000/api/auth';
         created_at: '2023-05-11 12:20'
     };
     (0, globals_1.test)('Get notifications', () => __awaiter(void 0, void 0, void 0, function* () {
-        const res = yield axios_1.default.get(url);
+        const res = yield axios_1.default.get(notificationsUrl);
         const data = res.data;
         (0, globals_1.expect)(res.status).toBe(200);
         (0, globals_1.expect)(data.length).toBeGreaterThan(0);
@@ -39,25 +38,30 @@ const authUrl = 'http://127.0.0.1:3000/api/auth';
             category: 'finance',
             message: 'Bla bla bla'
         };
-        const res = yield axios_1.default.post(url, notification);
+        const res = yield axios_1.default.post(notificationsUrl, notification);
         (0, globals_1.expect)(res.status).toBe(200);
     }));
 });
 (0, globals_1.describe)('Test authentication routes', () => {
-    (0, globals_1.test)('Get notifications', () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.test)('Fail authenticate user', () => __awaiter(void 0, void 0, void 0, function* () {
         const loginRequest = {
-            email: 'ing.carlosagaton',
+            email: 'ing.carlosagaton@gmail.com',
             password: 'password'
         };
-        const res = yield axios_1.default.post(authUrl + '/signin', loginRequest);
-        (0, globals_1.expect)(res.status).toBe(400);
+        try {
+            yield axios_1.default.post('http://127.0.0.1:3000/api/auth/signin', loginRequest);
+        }
+        catch (error) {
+            const errorResponse = error.response;
+            (0, globals_1.expect)(errorResponse.status).toBe(400);
+        }
     }));
-    (0, globals_1.test)('Create notification', () => __awaiter(void 0, void 0, void 0, function* () {
-        const notification = {
-            category: 'finance',
-            message: 'Bla bla bla'
+    (0, globals_1.test)('Sucess authenticate user', () => __awaiter(void 0, void 0, void 0, function* () {
+        const loginRequest = {
+            email: 'one@gmail.com',
+            password: 'password'
         };
-        const res = yield axios_1.default.post(url, notification);
+        const res = yield axios_1.default.post('http://127.0.0.1:3000/api/auth/signin', loginRequest);
         (0, globals_1.expect)(res.status).toBe(200);
     }));
 });
