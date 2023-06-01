@@ -7,7 +7,7 @@ export default class LoginController {
     const response: Response = {
       success: false,
       message: '',
-      data: []
+      data: {}
     }
 
     try {
@@ -23,7 +23,7 @@ export default class LoginController {
         }
 
         response.success = true
-        response.data.push(data)
+        response.data = data
         return res.send(response)
       }
 

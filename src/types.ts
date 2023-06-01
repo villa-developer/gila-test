@@ -29,7 +29,7 @@ export interface NotificationAttributes {
 export interface Response {
   success: boolean
   message: string
-  data: any[]
+  data: any
 }
 
 export interface LoginSucessResponse {
